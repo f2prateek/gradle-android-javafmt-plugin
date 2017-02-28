@@ -1,0 +1,73 @@
+buildscript {
+  repositories {
+    jcenter()
+    mavenCentral()
+  }
+
+  dependencies {
+    classpath 'com.bmuschko:gradle-nexus-plugin:2.3'
+  }
+}
+
+apply plugin: 'groovy'
+apply plugin: 'com.bmuschko.nexus'
+apply plugin: 'idea'
+
+dependencies {
+  repositories {
+    mavenCentral()
+  }
+
+  compile gradleApi()
+  compile localGroovy()
+  compile 'com.android.tools.build:gradle:1.1.0-rc3'
+  compile 'com.google.googlejavaformat:google-java-format:1.3'
+  compile 'com.google.guava:guava:19.0'
+}
+
+group = 'com.f2prateek.javafmt'
+version = '0.1.0-SNAPSHOT'
+
+install {
+  repositories.mavenInstaller {
+    pom.artifactId = 'javafmt'
+  }
+}
+
+uploadArchives {
+  repositories.mavenDeployer {
+    pom.artifactId = 'javafmt'
+  }
+}
+
+modifyPom {
+  project {
+    name 'Android Java Format Plugin'
+    description 'Sets up Google Java Format for Gradle-based Android projects.'
+    url 'https://github.com/f2prateek/gradle-android-javafmt-plugin'
+    inceptionYear '2015'
+
+    scm {
+      url 'https://github.com/f2prateek/gradle-android-javafmt-plugin'
+      connection 'scm:git:git://github.com/f2prateek/gradle-android-javafmt-plugin.git'
+      developerConnection 'scm:git:ssh://git@github.com/f2prateek/gradle-android-javafmt-plugin.git'
+    }
+
+    licenses {
+      license {
+        name 'The Apache Software License, Version 2.0'
+        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+        distribution 'repo'
+      }
+    }
+
+    developers {
+      developer {
+        id 'f2prateek'
+        name 'Prateek Srivastava'
+        email 'f2prateek@gmail.com'
+      }
+    }
+  }
+}
+
