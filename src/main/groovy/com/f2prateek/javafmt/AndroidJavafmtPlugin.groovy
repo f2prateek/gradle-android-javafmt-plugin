@@ -21,7 +21,7 @@ class AndroidJavafmtPlugin implements Plugin<Project> {
     def fmtTasks = []
 
     variants.all { variant ->
-      def name = variant.buildType.name
+      def name = variant.name
       def fmt = project.tasks.create "fmt${name.capitalize()}", JavaFmtTask
       fmt.dependsOn variant.javaCompile
       fmt.source variant.javaCompile.source
