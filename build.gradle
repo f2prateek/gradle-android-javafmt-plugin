@@ -27,7 +27,7 @@ dependencies {
 }
 
 group = 'com.f2prateek.javafmt'
-version = '0.1.2-SNAPSHOT'
+version = '0.1.2'
 
 install {
   repositories.mavenInstaller {

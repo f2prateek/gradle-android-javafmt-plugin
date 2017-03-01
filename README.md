@@ -15,12 +15,16 @@ buildscript {
     mavenCentral()
   }
   dependencies {
-    classpath 'com.f2prateek.javafmt:javafmt:0.1.1'
+    classpath 'com.f2prateek.javafmt:javafmt:0.1.2'
   }
 }
 
 apply plugin: 'com.f2prateek.javafmt'
 ```
+
+Run `./gradlew fmt` to format your files. This also runs when you call `./gradlew assemble`.
+
+Run `./gradlew checkFmt` to verify your files are formatted. This also runs when you call `./gradlew check`.
 
 
 License
