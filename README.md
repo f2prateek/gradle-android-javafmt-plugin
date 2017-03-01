@@ -15,7 +15,7 @@ buildscript {
     mavenCentral()
   }
   dependencies {
-    classpath 'com.f2prateek.javafmt:javafmt:0.1.0'
+    classpath 'com.f2prateek.javafmt:javafmt:0.1.1'
   }
 }
 
