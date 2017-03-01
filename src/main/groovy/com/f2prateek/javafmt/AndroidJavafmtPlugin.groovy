@@ -4,6 +4,7 @@ import com.android.build.gradle.AppPlugin
 import com.android.build.gradle.LibraryPlugin
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.tasks.SourceTask
 import org.gradle.api.tasks.StopExecutionException
 
 class AndroidJavafmtPlugin implements Plugin<Project> {
@@ -19,21 +20,30 @@ class AndroidJavafmtPlugin implements Plugin<Project> {
     }
 
     def fmtTasks = []
+    def verifyFmtTasks = []
 
     variants.all { variant ->
-      def name = variant.name
-      def fmt = project.tasks.create "fmt${name.capitalize()}", JavaFmtTask
+      def fmt = project.tasks.create "fmt${variant.name.capitalize()}", JavaFmtTask
       fmt.dependsOn variant.javaCompile
       fmt.source variant.javaCompile.source
       fmt.exclude('**/BuildConfig.java')
       fmt.exclude('**/R.java')
       project.tasks.getByName("assemble").dependsOn fmt
       fmtTasks.add fmt
-    }
 
+      def verifyFmt = project.tasks.create "verifyFmt${variant.name.capitalize()}", VerifyFmtTask
+      verifyFmt.dependsOn variant.javaCompile
+      verifyFmt.source variant.javaCompile.source
+      verifyFmt.exclude('**/BuildConfig.java')
+      verifyFmt.exclude('**/R.java')
+      verifyFmtTasks.add verifyFmt
+    }
 
     def fmt = project.tasks.create "fmt"
     fmt.dependsOn fmtTasks
+
+    def verifyFmt = project.tasks.create "verifyFmt"
+    verifyFmt.dependsOn verifyFmtTasks
   }
 
   static def hasPlugin(Project project, Class<? extends Plugin> plugin) {

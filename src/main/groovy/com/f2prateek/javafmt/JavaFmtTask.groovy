@@ -18,9 +18,9 @@ class JavaFmtTask extends SourceTask {
 
     def tasks = getSource().collect { file ->
       return {
-        def input = Files.asCharSource(file, Charsets.UTF_8).read()
-        def output = formatter.formatSource(input)
-        Files.write(output, file, Charsets.UTF_8)
+        def source = Files.asCharSource(file, Charsets.UTF_8).read()
+        def formatted = formatter.formatSource(source)
+        Files.write(formatted, file, Charsets.UTF_8)
         return file
       }
     }
