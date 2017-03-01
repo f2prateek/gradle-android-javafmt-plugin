@@ -22,6 +22,7 @@ dependencies {
   compile localGroovy()
   compile 'com.android.tools.build:gradle:1.1.0-rc3'
   compile 'com.google.googlejavaformat:google-java-format:1.3'
+  compile 'com.googlecode.java-diff-utils:diffutils:1.2.1'
   compile 'com.google.guava:guava:19.0'
 }
 
