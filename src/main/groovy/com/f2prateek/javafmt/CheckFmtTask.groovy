@@ -14,7 +14,7 @@ import org.gradle.api.tasks.VerificationTask
 import java.util.concurrent.ExecutionException
 import java.util.concurrent.Executors
 
-class VerifyFmtTask extends SourceTask implements VerificationTask {
+class CheckFmtTask extends SourceTask implements VerificationTask {
   @TaskAction
   def fmt() {
     def formatter = new Formatter();
@@ -39,7 +39,7 @@ class VerifyFmtTask extends SourceTask implements VerificationTask {
             logger.warn(message)
           } else {
             logger.error(message)
-            throw new VerifyFmtException()
+            throw new CheckFmtException()
           }
         }
 
@@ -53,7 +53,7 @@ class VerifyFmtTask extends SourceTask implements VerificationTask {
       try {
         result.get()
       } catch (ExecutionException e) {
-        if (e.getCause() instanceof VerifyFmtException) {
+        if (e.getCause() instanceof CheckFmtException) {
           errors.add e.getCause()
         } else {
           throw e
@@ -66,13 +66,11 @@ class VerifyFmtTask extends SourceTask implements VerificationTask {
     }
   }
 
-  /**
-   * Whether or not this task will ignore failures and continue running the build.
-   */
+  /** Whether or not this task will ignore failures and continue running the build. */
   boolean ignoreFailures
 
-  public class VerifyFmtException extends GradleException {
-    public VerifyFmtException() {
+  public class CheckFmtException extends GradleException {
+    public CheckFmtException() {
       super("Code style violations found. Run `./gradlew fmt` to format.");
     }
   }
