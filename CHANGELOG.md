@@ -5,7 +5,7 @@ Change Log
 Version 0.1.2 *(01 Mar 2017)*
 -----------------------------
 
- * New: Add a `checkFmt` task to verify files are formatted. This is run as part of the `check` task.
+ * New: Add a `checkFmt` task to verify files are formatted. This is also run as part of the `check` task.
 
 
 Version 0.1.1 *(28 Feb 2017)*
