@@ -1,7 +1,7 @@
 Android Javafmt Plugin
 =========================
 
-A plugin that formats your code using [googe-java-format](https://github.com/google/google-java-format).
+A plugin that formats your code using [google-java-format](https://github.com/google/google-java-format).
 
 
 Usage
