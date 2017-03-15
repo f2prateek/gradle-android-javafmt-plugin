@@ -16,14 +16,16 @@ class JavaFmtTask extends SourceTask {
     def executor = Executors.newFixedThreadPool(2,
             new ThreadFactoryBuilder().setNameFormat("javafmt-pool-%d").build())
 
-    def tasks = getSource().collect { file ->
-      return {
-        def source = Files.asCharSource(file, Charsets.UTF_8).read()
-        def formatted = formatter.formatSource(source)
-        Files.write(formatted, file, Charsets.UTF_8)
-        return file
-      }
-    }
+    def tasks = getSource()
+            .findAll({ AndroidJavafmtPlugin.isNotBuildFile(it.path) })
+            .collect { file ->
+              return {
+                def source = Files.asCharSource(file, Charsets.UTF_8).read()
+                def formatted = formatter.formatSource(source)
+                Files.write(formatted, file, Charsets.UTF_8)
+                return file
+              }
+            }
 
     def results = executor.invokeAll(tasks)
     results.each { result ->
