@@ -6,6 +6,8 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.tasks.StopExecutionException
 
+import java.util.regex.Pattern
+
 class AndroidJavafmtPlugin implements Plugin<Project> {
   @Override void apply(Project project) {
     def variants
@@ -22,20 +24,24 @@ class AndroidJavafmtPlugin implements Plugin<Project> {
     def checkFmtTasks = []
 
     variants.all { variant ->
+      // TODO: Consolidate common code.
+
+      // Matches:
+      // Windows: \analytics\build\BuildConfig.java
+      // Unix: /analytics/build/BuildConfig.java
+      def pattern = Pattern.compile("(.*\\/build\\/.*\\/*.java)|(.*\\build\\.*\\*.java)");
+
       def fmt = project.tasks.create "fmt${variant.name.capitalize()}", JavaFmtTask
       fmt.dependsOn variant.javaCompile
       fmt.source variant.javaCompile.source
-      fmt.exclude('**/BuildConfig.java')
-      fmt.exclude('**/R.java')
+      fmt.exclude { !pattern.matcher(it.path).matches() }
       project.tasks.getByName("assemble").dependsOn fmt
       fmtTasks.add fmt
 
-      // todo: consolidate.
       def checkFmt = project.tasks.create "checkFmt${variant.name.capitalize()}", CheckFmtTask
       checkFmt.dependsOn variant.javaCompile
       checkFmt.source variant.javaCompile.source
-      checkFmt.exclude('**/BuildConfig.java')
-      checkFmt.exclude('**/R.java')
+      checkFmt.exclude { !pattern.matcher(it.path).matches() }
       project.tasks.getByName("check").dependsOn checkFmt
       checkFmtTasks.add checkFmt
     }
