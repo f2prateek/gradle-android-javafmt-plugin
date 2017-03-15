@@ -1,6 +1,11 @@
 Change Log
 ==========
 
+Version 0.1.3 *(15 Mar 2017)*
+-----------------------------
+
+ * [Fix](https://github.com/f2prateek/gradle-android-javafmt-plugin/pull/12): Properly exclude build/generated Java files.
+
 
 Version 0.1.2 *(01 Mar 2017)*
 -----------------------------
