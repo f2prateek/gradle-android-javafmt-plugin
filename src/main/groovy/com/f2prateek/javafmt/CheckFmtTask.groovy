@@ -21,31 +21,33 @@ class CheckFmtTask extends SourceTask implements VerificationTask {
     def executor = Executors.newFixedThreadPool(2,
             new ThreadFactoryBuilder().setNameFormat("verify-javafmt-pool-%d").build())
 
-    def tasks = getSource().collect { file ->
-      return {
-        def source = Files.asCharSource(file, Charsets.UTF_8).read()
-        def formatted = formatter.formatSource(source)
+    def tasks = getSource()
+            .findAll({ AndroidJavafmtPlugin.isNotBuildFile(it.path) })
+            .collect { file ->
+              return {
+                def source = Files.asCharSource(file, Charsets.UTF_8).read()
+                def formatted = formatter.formatSource(source)
 
-        if (!source.equals(formatted)) {
-          def patch = DiffUtils.diff(source.readLines(), formatted.readLines());
-          def message = patch.deltas.collect { delta ->
-            def original = delta.getOriginal()
-            def originalLines = original.lines.join("\n")
-            def revised = delta.getRevised()
-            def revisedLines = revised.lines.join("\n")
-            return "\nexpected at line $revised.position:\n$revisedLines\ngot at line $original.position:\n$originalLines\n"
-          }.join('\n')
-          if (getIgnoreFailures()) {
-            logger.warn(message)
-          } else {
-            logger.error(message)
-            throw new CheckFmtException()
-          }
-        }
+                if (!source.equals(formatted)) {
+                  def patch = DiffUtils.diff(source.readLines(), formatted.readLines());
+                  def message = patch.deltas.collect { delta ->
+                    def original = delta.getOriginal()
+                    def originalLines = original.lines.join("\n")
+                    def revised = delta.getRevised()
+                    def revisedLines = revised.lines.join("\n")
+                    return "\nexpected at line $revised.position:\n$revisedLines\ngot at line $original.position:\n$originalLines\n"
+                  }.join('\n')
+                  if (getIgnoreFailures()) {
+                    logger.warn(message)
+                  } else {
+                    logger.error(message)
+                    throw new CheckFmtException()
+                  }
+                }
 
-        return file
-      }
-    }
+                return file
+              }
+            }
 
     List<Throwable> errors = []
     def results = executor.invokeAll(tasks)
