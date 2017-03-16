@@ -9,9 +9,10 @@ import org.gradle.api.Project
 class FormatterFactory {
   static formatter(Project project) {
     def extension = project.extensions.getByType(AndroidJavaFmtExtension)
+    def options =  JavaFormatterOptions.builder()
     if (extension.aospStyle) {
-      return new Formatter(JavaFormatterOptions.builder().style(AOSP).build())
+      options.style(AOSP)
     }
-    return new Formatter()
+    return new Formatter(options.build())
   }
 }
