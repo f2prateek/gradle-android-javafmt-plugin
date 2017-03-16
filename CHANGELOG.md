@@ -4,13 +4,8 @@ Change Log
 Version 0.1.4 *(15 Mar 2017)*
 -----------------------------
 
- * [Fix](https://github.com/f2prateek/gradle-android-javafmt-plugin/pull/13): Fix regression introduced in 0.1.4. 0.1.4 would incorrectly ignore all files, causing the fmt and checkFmt tasks to do nothing.
+ * [Fix](https://github.com/f2prateek/gradle-android-javafmt-plugin/pull/13): Fix regression introduced in 0.1.3. 0.1.3 would incorrectly ignore all files, causing the fmt and checkFmt tasks to do nothing. Don't use 0.1.3 (still published but not listed here).
 
-
-Version 0.1.3 *(15 Mar 2017)*
------------------------------
-
- * [Fix](https://github.com/f2prateek/gradle-android-javafmt-plugin/pull/12): Properly exclude build/generated Java files.
 
 
 Version 0.1.2 *(01 Mar 2017)*
