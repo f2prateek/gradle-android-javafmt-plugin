@@ -9,6 +9,10 @@ import org.gradle.api.tasks.StopExecutionException
 import java.util.regex.Pattern
 
 class AndroidJavafmtPlugin implements Plugin<Project> {
+
+  static String CONFIG_NAME = "javafmtConfig"
+  static String GOOGLE_JAVA_FORMAT = "com.google.googlejavaformat:google-java-format:1.3"
+
   // TODO: do via excludes.
   // Matches:
   // Windows: \analytics\build\BuildConfig.java
@@ -21,6 +25,11 @@ class AndroidJavafmtPlugin implements Plugin<Project> {
 
   @Override void apply(Project project) {
     project.extensions.create('javafmt', AndroidJavaFmtExtension)
+
+    def config = project.configurations.create(CONFIG_NAME)
+    config.defaultDependencies { dependencies ->
+      dependencies.add(project.dependencies.create(GOOGLE_JAVA_FORMAT))
+    }
 
     def variants
     if (hasPlugin(project, AppPlugin)) {
