@@ -3,21 +3,19 @@ package com.f2prateek.javafmt
 import com.google.common.base.Charsets
 import com.google.common.io.Files
 import com.google.common.util.concurrent.ThreadFactoryBuilder
-import com.google.googlejavaformat.java.Formatter
 import difflib.DiffUtils
 import org.gradle.api.GradleException
 import org.gradle.api.tasks.SourceTask
 import org.gradle.api.tasks.TaskAction
 import org.gradle.api.tasks.TaskExecutionException
 import org.gradle.api.tasks.VerificationTask
-
 import java.util.concurrent.ExecutionException
 import java.util.concurrent.Executors
 
 class CheckFmtTask extends SourceTask implements VerificationTask {
   @TaskAction
   def fmt() {
-    def formatter = new Formatter();
+    def formatter = FormatterFactory.formatter(project)
     def executor = Executors.newFixedThreadPool(2,
             new ThreadFactoryBuilder().setNameFormat("verify-javafmt-pool-%d").build())
 

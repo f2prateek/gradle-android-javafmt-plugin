@@ -27,6 +27,18 @@ Run `./gradlew fmt` to format your files. This also runs when you call `./gradle
 Run `./gradlew checkFmt` to verify your files are formatted. This also runs when you call `./gradlew check`.
 
 
+Configuration
+-----
+
+To use 4 space indents instead of 2 space indents add this to your `build.gradle`:
+
+```groovy
+javafmt {
+  style 'AOSP'
+}
+```
+
+
 License
 --------
 
