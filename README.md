@@ -34,7 +34,7 @@ To use 4 space indents instead of 2 space indents add this to your `build.gradle
 
 ```groovy
 javafmt {
-  aospStyle true
+  style 'AOSP'
 }
 ```
 

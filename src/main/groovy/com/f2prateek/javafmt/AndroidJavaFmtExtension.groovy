@@ -1,5 +1,18 @@
-package com.f2prateek.javafmt;
+package com.f2prateek.javafmt
+
+import com.google.googlejavaformat.java.JavaFormatterOptions;
 
 class AndroidJavaFmtExtension {
-  def aospStyle = false
+  Style style = Style.GOOGLE
+
+  enum Style {
+    AOSP(JavaFormatterOptions.Style.AOSP),
+    GOOGLE(JavaFormatterOptions.Style.GOOGLE);
+
+    def value;
+
+    Style(def value) {
+      this.value = value;
+    }
+  }
 }
