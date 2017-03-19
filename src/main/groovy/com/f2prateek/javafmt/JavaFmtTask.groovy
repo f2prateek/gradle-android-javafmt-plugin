@@ -3,16 +3,14 @@ package com.f2prateek.javafmt
 import com.google.common.base.Charsets
 import com.google.common.io.Files
 import com.google.common.util.concurrent.ThreadFactoryBuilder
-import com.google.googlejavaformat.java.Formatter
 import org.gradle.api.tasks.SourceTask
 import org.gradle.api.tasks.TaskAction
-
 import java.util.concurrent.Executors
 
 class JavaFmtTask extends SourceTask {
   @TaskAction
   def fmt() {
-    def formatter = new Formatter();
+    def formatter = FormatterFactory.formatter(project)
     def executor = Executors.newFixedThreadPool(2,
             new ThreadFactoryBuilder().setNameFormat("javafmt-pool-%d").build())
 

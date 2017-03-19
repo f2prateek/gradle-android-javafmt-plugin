@@ -20,6 +20,8 @@ class AndroidJavafmtPlugin implements Plugin<Project> {
   }
 
   @Override void apply(Project project) {
+    project.extensions.create('javafmt', AndroidJavaFmtExtension)
+
     def variants
     if (hasPlugin(project, AppPlugin)) {
       variants = project.android.applicationVariants
