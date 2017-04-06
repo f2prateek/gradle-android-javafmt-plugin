@@ -1,6 +1,25 @@
 Change Log
 ==========
 
+Version 0.1.5 *(05 Apr 2017)*
+-----------------------------
+
+ * [New](https://github.com/f2prateek/gradle-android-javafmt-plugin/pull/16): Add ability to configure `google-java-format` version.
+
+```
+dependencies {
+  javafmt "com.google.googlejavaformat:google-java-format:${version}"
+}
+```
+
+ * [New](https://github.com/f2prateek/gradle-android-javafmt-plugin/pull/15): Add ability to select between `AOSP` and `GOOGLE` code styles.
+
+```
+javafmt {
+  style 'AOSP'
+}
+```
+
 Version 0.1.4 *(15 Mar 2017)*
 -----------------------------
 
