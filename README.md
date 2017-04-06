@@ -38,6 +38,13 @@ javafmt {
 }
 ```
 
+By default google-java-format version 1.3 is used. To change that you can explicitly add it to your dependencies.
+
+```groovy
+dependencies {
+  javafmt "com.google.googlejavaformat:google-java-format:${version}"
+}
+```
 
 License
 --------
