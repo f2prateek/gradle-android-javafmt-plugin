@@ -15,7 +15,7 @@ class JavaFmtTask extends SourceTask {
             new ThreadFactoryBuilder().setNameFormat("javafmt-pool-%d").build())
 
     def tasks = getSource()
-            .findAll({ AndroidJavafmtPlugin.isNotBuildFile(it.path) })
+            .findAll({ AndroidJavafmtPlugin.isNotBuildFile(project, it.path) })
             .collect { file ->
               return {
                 def source = Files.asCharSource(file, Charsets.UTF_8).read()
