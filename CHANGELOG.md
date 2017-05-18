@@ -1,6 +1,12 @@
 Change Log
 ==========
 
+Version 0.1.6 *(18 May 2017)*
+-----------------------------
+
+ * [Improvement](https://github.com/f2prateek/gradle-android-javafmt-plugin/pull/18): Respect `project.buildDir`.
+
+
 Version 0.1.5 *(05 Apr 2017)*
 -----------------------------
 
@@ -20,11 +26,11 @@ javafmt {
 }
 ```
 
+
 Version 0.1.4 *(15 Mar 2017)*
 -----------------------------
 
  * [Fix](https://github.com/f2prateek/gradle-android-javafmt-plugin/pull/13): Fix regression introduced in 0.1.3. 0.1.3 would incorrectly ignore all files, causing the fmt and checkFmt tasks to do nothing. Don't use 0.1.3 (still published but not listed here).
-
 
 
 Version 0.1.2 *(01 Mar 2017)*
