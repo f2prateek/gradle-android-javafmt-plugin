@@ -12,15 +12,15 @@ class AndroidJavafmtPlugin implements Plugin<Project> {
 
   static String CONFIG_NAME = "javafmt"
   static String GOOGLE_JAVA_FORMAT = "com.google.googlejavaformat:google-java-format:1.3"
+  static Map<Project, Pattern> regexCache = [:]
 
-  // TODO: do via excludes.
-  // Matches:
-  // Windows: \analytics\build\BuildConfig.java
-  // Unix: /analytics/build/BuildConfig.java
-  static BUILD_FILE_PATTERN = Pattern.compile("(.*\\/build\\/.*\\/*.java)|(.*\\build\\.*\\*.java)")
-
-  static boolean isNotBuildFile(String path) {
-    return !BUILD_FILE_PATTERN.matcher(path).matches()
+  static boolean isNotBuildFile(Project project, String path) {
+    // TODO: do via excludes.
+    def pattern = regexCache[project]
+    if (!pattern) {
+      pattern = regexCache[project] = ~$/${project.buildDir}[\\/].*\.java/$
+    }
+    !(path ==~ pattern)
   }
 
   @Override void apply(Project project) {
