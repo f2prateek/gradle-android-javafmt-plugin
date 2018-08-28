@@ -1,7 +1,10 @@
 Android Javafmt Plugin
 =========================
 
+Deprecated: I recommend using https://github.com/diffplug/spotless
+
 A plugin that formats your code using [google-java-format](https://github.com/google/google-java-format).
+
 
 
 Usage
